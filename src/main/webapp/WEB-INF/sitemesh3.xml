@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+    <decorator-prefix>/WEB-INF/decorators/</decorator-prefix>
+    <dispatch-mode>include</dispatch-mode>
+    <!-- Path mappings are registered in SiteMeshConfig_24133028. -->
+</sitemesh>

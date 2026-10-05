@@ -1,0 +1,12 @@
+target/
+.idea/
+.vscode/
+*.iml
+*.log
+.env
+.env.*
+!.env.example
+setenv.bat
+application-local.properties
+*.cookie
+/.github/modernize/

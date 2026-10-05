@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+    <persistence-unit name="bookStorePersistenceUnit_24133028" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.kiemtragiuaky.entity.User_24133028</class>
+        <class>com.kiemtragiuaky.entity.Book_24133028</class>
+        <class>com.kiemtragiuaky.entity.Author_24133028</class>
+        <class>com.kiemtragiuaky.entity.Rating_24133028</class>
+        <class>com.kiemtragiuaky.entity.RatingId_24133028</class>
+        <class>com.kiemtragiuaky.entity.AccountOtp_24133028</class>
+        <properties>
+            <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+            <property name="hibernate.hbm2ddl.auto" value="none"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+        </properties>
+    </persistence-unit>
+</persistence>

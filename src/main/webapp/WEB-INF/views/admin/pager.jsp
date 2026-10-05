@@ -1,0 +1,1 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %><nav class="mt-3"><ul class="pagination"><c:forEach begin="1" end="${totalPages}" var="p"><li class="page-item ${p==currentPage?'active':''}"><a class="page-link" href="?page=${p}">${p}</a></li></c:forEach></ul></nav>

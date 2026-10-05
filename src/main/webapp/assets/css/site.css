@@ -1,0 +1,9 @@
+body { background: #f4f7fb; color: #172033; }
+.hero-section { background: linear-gradient(120deg, #e8f2ff, #ffffff); }
+.site-footer { background: #10213d; color: #ffffff; }
+.admin-sidebar { width: 250px; background: #0d6efd; min-height: 100vh; }
+.admin-sidebar .nav-link { border-radius: .375rem; }
+.admin-sidebar .nav-link:hover { background: rgba(255, 255, 255, .18); }
+.book-cover { height: 220px; object-fit: cover; background: #eef5ff; }
+.card dl { display: grid; grid-template-columns: 110px 1fr; gap: .25rem .5rem; }
+.card dt, .card dd { margin: 0; }
