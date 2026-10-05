@@ -21,9 +21,9 @@ mvn clean package
 - Dang ky va xac minh tai khoan bang OTP email; dang nhap/dang xuat va phan quyen Admin.
 - Trang chu phan trang sach, chi tiet sach va review.
 - Admin CRUD sach va tac gia.
+- Gio hang theo session cho User dang nhap; gia va ton kho duoc doc tu database, khong tru kho khi them gio.
 
 ## Chuc nang dang phat trien
 
-- Gio hang User.
 - Checkout thanh toan COD.
 - Lich su don hang va loc theo trang thai.

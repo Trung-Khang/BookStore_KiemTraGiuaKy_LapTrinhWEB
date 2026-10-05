@@ -15,6 +15,7 @@
     <nav class="navbar navbar-expand-lg container py-3">
         <a class="navbar-brand fw-bold text-primary" href="<c:url value='/home'/>">BookStore</a>
         <div class="navbar-nav ms-auto gap-lg-3 align-items-center">
+            <c:if test="${not empty sessionScope.currentUser and not sessionScope.currentUser.admin}"><a class="nav-link" href="<c:url value='/cart'/>">Giỏ hàng</a></c:if>
             <a class="nav-link" href="<c:url value='/home'/>">Trang Chủ</a>
             <a class="nav-link" href="<c:url value='/home'/>">Sản phẩm</a>
             <c:choose>
