@@ -11,7 +11,7 @@
 <body class="admin-body"><div class="d-flex min-vh-100">
     <aside class="admin-sidebar p-4 text-white">
         <a class="navbar-brand text-white fw-bold fs-4" href="<c:url value='/admin/dashboard'/>">BookStore Admin</a><hr>
-        <p class="mb-1">Xin chào</p><strong><c:out value="${sessionScope.currentUser.fullname}" default="Quản trị viên"/></strong>
+        <p class="mb-1">Xin chào</p><strong>Quản trị viên</strong>
         <nav class="nav flex-column mt-4 gap-2"><a class="nav-link text-white" href="<c:url value='/admin/dashboard'/>">Tổng quan</a><a class="nav-link text-white" href="#">Quản lý sách</a><a class="nav-link text-white" href="#">Quản lý tác giả</a><a class="nav-link text-white" href="<c:url value='/home'/>">Về trang User</a></nav>
     </aside>
     <div class="flex-grow-1 d-flex flex-column"><header class="bg-white border-bottom px-4 py-3 shadow-sm d-flex justify-content-between align-items-center"><strong>Trang quản trị BookStore</strong><form method="post" action="<c:url value='/logout'/>"><button class="btn btn-outline-danger btn-sm" type="submit">Đăng xuất</button></form></header>
