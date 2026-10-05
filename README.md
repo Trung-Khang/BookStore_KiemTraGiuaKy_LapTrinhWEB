@@ -8,7 +8,7 @@ Ung dung Maven WAR cho de 01, su dung Jakarta Servlet/JSP/JSTL, JPA/Hibernate, S
 - Apache Tomcat 11.0.25
 - SQL Server, cau hinh bang bien moi truong `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_ENCRYPT`, `DB_TRUST_SERVER_CERTIFICATE`
 
-Tao schema bang script `sql/001-create-bookstore.sql`. Khong luu credential vao repository. Tai khoan thu nghiem khong duoc cong khai trong README; hay tao/cau hinh tai khoan rieng trong database local.
+Tao schema bang `sql/001-create-bookstore.sql`; chay migration `sql/005-orders.sql` mot lan truoc khi checkout. Khong luu credential vao repository. Tai khoan thu nghiem khong duoc cong khai trong README; hay tao/cau hinh tai khoan rieng trong database local.
 
 Build WAR:
 
@@ -23,7 +23,5 @@ mvn clean package
 - Admin CRUD sach va tac gia.
 - Gio hang theo session cho User dang nhap; gia va ton kho doc tu database, khong tru kho khi them gio.
 - Checkout COD dung JPA transaction, khoa va cap nhat ton kho, luu snapshot don hang.
-
-## Chuc nang dang phat trien
-
-- Lich su don hang va loc theo trang thai.
+- User xem lich su/chi tiet don va loc theo 8 ma trang thai: `NEW`, `CONFIRMED`, `PREPARING`, `SHIPPING`, `DELIVERING`, `DELIVERED`, `CANCELLED`, `RETURNED`.
+- De quan sat filter, tao don test co nguoi nhan `TEST`, email `order-test@local.invalid`; script `sql/006-order-status-test.sql` chi cho phep cap nhat dung order duoc danh dau nay.

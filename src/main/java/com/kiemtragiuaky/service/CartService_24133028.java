@@ -14,8 +14,10 @@ public class CartService_24133028 {
     public List<CartLine_24133028> lines(Map<Integer, Integer> cart) {
         List<CartLine_24133028> result = new ArrayList<>();
         if (cart == null) return result;
-        for (var entry : cart.entrySet()) {
-            books.findById(entry.getKey()).ifPresent(book -> result.add(new CartLine_24133028(book, entry.getValue())));
+        for (var entry : new ArrayList<>(cart.entrySet())) {
+            var book = books.findById(entry.getKey());
+            if (book.isPresent()) result.add(new CartLine_24133028(book.get(), entry.getValue()));
+            else cart.remove(entry.getKey());
         }
         return result;
     }

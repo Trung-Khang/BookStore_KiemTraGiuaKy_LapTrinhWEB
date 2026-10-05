@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<c:remove var="checkoutOrderId" scope="session"/>
 <title>Giỏ hàng | BookStore</title>
 <section class="container py-5">
     <h1 class="h2 mb-4">Giỏ hàng</h1>

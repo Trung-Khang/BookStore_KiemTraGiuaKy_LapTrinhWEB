@@ -4,17 +4,41 @@ import com.kiemtragiuaky.config.JpaConfig_24133028;
 import com.kiemtragiuaky.dao.IOrderDao_24133028;
 import com.kiemtragiuaky.entity.Book_24133028;
 import com.kiemtragiuaky.entity.OrderItem_24133028;
-import com.kiemtragiuaky.entity.OrderStatus_24133028;
 import com.kiemtragiuaky.entity.Order_24133028;
 import com.kiemtragiuaky.entity.User_24133028;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.LockModeType;
+import com.kiemtragiuaky.entity.OrderStatus_24133028;
+import java.util.List;
+import java.util.Optional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
 
 public class OrderDaoImpl_24133028 implements IOrderDao_24133028 {
+    @Override
+    public List<Order_24133028> findByUser(int userId, OrderStatus_24133028 status) {
+        EntityManager em = JpaConfig_24133028.getEntityManagerFactory().createEntityManager();
+        try {
+            String jpql = "select distinct o from Order_24133028 o left join fetch o.items where o.user.id = :userId";
+            if (status != null) jpql += " and o.status = :status";
+            jpql += " order by o.createdAt desc, o.id desc";
+            var query = em.createQuery(jpql, Order_24133028.class).setParameter("userId", userId);
+            if (status != null) query.setParameter("status", status);
+            return query.getResultList();
+        } finally { em.close(); }
+    }
+
+    @Override
+    public Optional<Order_24133028> findByIdAndUser(int orderId, int userId) {
+        EntityManager em = JpaConfig_24133028.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("select distinct o from Order_24133028 o left join fetch o.items where o.id = :id and o.user.id = :userId", Order_24133028.class)
+                    .setParameter("id", orderId).setParameter("userId", userId).getResultStream().findFirst();
+        } finally { em.close(); }
+    }
+
     @Override
     public Order_24133028 createCodOrder(int userId, String name, String phone, String email, String address, Map<Integer, Integer> quantities) {
         EntityManager em = JpaConfig_24133028.getEntityManagerFactory().createEntityManager();
