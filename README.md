@@ -23,3 +23,15 @@ WAR được tạo tại `target/bookstore-24133028.war`. Cấu hình kết nố
 Giao diện được làm mới theo phong cách thư viện/kệ sách gỗ cổ điển, có hero sách mở 3D, bố cục responsive và biểu tượng Font Awesome. Các route, form, phân trang, luồng nghiệp vụ và dữ liệu JSP vẫn lấy từ hệ thống hiện có.
 
 Trang chủ local: <http://localhost:8080/bookstore-24133028/home>
+
+# Hướng dẫn sử dụng BookStore
+
+Ứng dụng đang chạy trên Tomcat. Mở trang chủ:
+
+[http://localhost:8080/bookstore-24133028/home](http://localhost:8080/bookstore-24133028/home)
+
+## Đăng nhập
+
+1. Chọn **Đăng nhập** trên thanh điều hướng hoặc mở [trang đăng nhập](http://localhost:8080/bookstore-24133028/login).
+2. Tài khoản user: tự đăng kí và đăng nhập
+3. Tài khoản admin: Email: trungkhang98pth+c2check@gmail.com | Password: C2SafePass938!
