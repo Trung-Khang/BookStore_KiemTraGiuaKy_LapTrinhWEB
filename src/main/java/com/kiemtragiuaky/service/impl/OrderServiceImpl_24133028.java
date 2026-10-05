@@ -23,6 +23,18 @@ public class OrderServiceImpl_24133028 implements IOrderService_24133028 {
 
     @Override public List<Order_24133028> history(int userId, OrderStatus_24133028 status) { return orders.findByUser(userId, status); }
     @Override public Optional<Order_24133028> findOwnedOrder(int orderId, int userId) { return orders.findByIdAndUser(orderId, userId); }
+    @Override public List<Order_24133028> adminPage(int page, int pageSize, OrderStatus_24133028 status) {
+        return orders.findAdminPage(Math.max(1, page), Math.max(1, pageSize), status);
+    }
+    @Override public long countAdminOrders(OrderStatus_24133028 status) { return orders.countAdminOrders(status); }
+    @Override public void updateAdminStatus(int orderId, OrderStatus_24133028 status) {
+        if (orderId < 1 || status == null) throw new IllegalArgumentException("Đơn hàng hoặc trạng thái không hợp lệ.");
+        orders.updateAdminStatus(orderId, status);
+    }
+    @Override public void deleteCancelledOrder(int orderId) {
+        if (orderId < 1) throw new IllegalArgumentException("Mã đơn hàng không hợp lệ.");
+        orders.deleteCancelledOrder(orderId);
+    }
 
     public static CheckoutContact_24133028 validateContact(String name, String phone, String email, String address) {
         String cleanName = name == null ? "" : name.trim();

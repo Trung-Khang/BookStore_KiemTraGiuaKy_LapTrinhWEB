@@ -1,39 +1,25 @@
-# BookStore - Kiem tra giua ky
+# BookStore - Kiểm tra giữa kỳ
 
-Ung dung Maven WAR cho de 01, su dung Jakarta Servlet/JSP/JSTL, JPA/Hibernate, SQL Server va SiteMesh 3.
+Ứng dụng Maven WAR cho đề 01, xây dựng bằng Java 24, Jakarta Servlet/JSP/JSTL, JPA/Hibernate, SQL Server và SiteMesh 3; triển khai trên Apache Tomcat 11.0.25.
 
-## Moi truong
-
-- Java 24, Maven compiler release 24
-- Apache Tomcat 11.0.25
-- SQL Server, cau hinh bang bien moi truong `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_ENCRYPT`, `DB_TRUST_SERVER_CERTIFICATE`
-
-Tao schema bang `sql/001-create-bookstore.sql`; chay migration `sql/005-orders.sql` mot lan truoc khi checkout. Khong luu credential vao repository. Tai khoan thu nghiem khong duoc cong khai trong README; hay tao/cau hinh tai khoan rieng trong database local.
-
-Build WAR:
+## Chạy và kiểm thử
 
 ```powershell
+mvn clean tes
 mvn clean package
-```
 
-## Chuc nang hien co
 
-- Dang ky va xac minh tai khoan bang OTP email; dang nhap/dang xuat va phan quyen Admin.
-- Trang chu phan trang sach, chi tiet sach va review.
-- Admin CRUD sach va tac gia.
-- Gio hang theo session cho User dang nhap; gia va ton kho doc tu database, khong tru kho khi them gio.
-- Checkout COD dung JPA transaction, khoa va cap nhat ton kho, luu snapshot don hang.
-- User xem lich su/chi tiet don va loc theo 8 ma trang thai: `NEW`, `CONFIRMED`, `PREPARING`, `SHIPPING`, `DELIVERING`, `DELIVERED`, `CANCELLED`, `RETURNED`.
-- De quan sat filter, tao don test co nguoi nhan `TEST`, email `order-test@local.invalid`; script `sql/006-order-status-test.sql` chi cho phep cap nhat dung order duoc danh dau nay.
+WAR được tạo tại `target/bookstore-24133028.war`. Cấu hình kết nối SQL Server bằng các biến môi trường `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_ENCRYPT` và `DB_TRUST_SERVER_CERTIFICATE`. Không lưu thông tin đăng nhập vào repository.
 
-# Hướng dẫn sử dụng BookStore
+## Chức năng
 
-Ứng dụng đang chạy trên Tomcat. Mở trang chủ:
+- Đăng ký, xác minh OTP email, đăng nhập và phân quyền Admin.
+- Danh sách sách phân trang, chi tiết sách và đánh giá.
+- Giỏ hàng theo session, thanh toán COD, lịch sử và lọc trạng thái đơn hàng.
+- Admin quản lý sách, tác giả và đơn hàng; chỉ đơn đã hủy mới được xóa.
 
-[http://localhost:8080/bookstore-24133028/home](http://localhost:8080/bookstore-24133028/home)
+## Giao diện
 
-## Đăng nhập
+Giao diện được làm mới theo phong cách thư viện/kệ sách gỗ cổ điển, có hero sách mở 3D, bố cục responsive và biểu tượng Font Awesome. Các route, form, phân trang, luồng nghiệp vụ và dữ liệu JSP vẫn lấy từ hệ thống hiện có.
 
-1. Chọn **Đăng nhập** trên thanh điều hướng hoặc mở [trang đăng nhập](http://localhost:8080/bookstore-24133028/login).
-2. Tài khoản user: tự đăng kí và đăng nhập
-3. Tài khoản admin: Email: trungkhang98pth+c2check@gmail.com | Password: C2SafePass938!
+Trang chủ local: <http://localhost:8080/bookstore-24133028/home>

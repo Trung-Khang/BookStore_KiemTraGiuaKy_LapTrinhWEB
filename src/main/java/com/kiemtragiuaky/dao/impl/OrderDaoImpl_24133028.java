@@ -12,6 +12,7 @@ import jakarta.persistence.LockModeType;
 import com.kiemtragiuaky.entity.OrderStatus_24133028;
 import java.util.List;
 import java.util.Optional;
+import java.util.Comparator;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -37,6 +38,110 @@ public class OrderDaoImpl_24133028 implements IOrderDao_24133028 {
             return em.createQuery("select distinct o from Order_24133028 o left join fetch o.items where o.id = :id and o.user.id = :userId", Order_24133028.class)
                     .setParameter("id", orderId).setParameter("userId", userId).getResultStream().findFirst();
         } finally { em.close(); }
+    }
+
+    @Override
+    public List<Order_24133028> findAdminPage(int page, int pageSize, OrderStatus_24133028 status) {
+        EntityManager em = JpaConfig_24133028.getEntityManagerFactory().createEntityManager();
+        try {
+            String idsJpql = "select o.id from Order_24133028 o";
+            if (status != null) idsJpql += " where o.status = :status";
+            idsJpql += " order by o.createdAt desc, o.id desc";
+            var idsQuery = em.createQuery(idsJpql, Integer.class)
+                    .setFirstResult((page - 1) * pageSize)
+                    .setMaxResults(pageSize);
+            if (status != null) idsQuery.setParameter("status", status);
+            List<Integer> ids = idsQuery.getResultList();
+            if (ids.isEmpty()) return List.of();
+
+            List<Order_24133028> result = em.createQuery(
+                            "select distinct o from Order_24133028 o join fetch o.user left join fetch o.items where o.id in :ids",
+                            Order_24133028.class)
+                    .setParameter("ids", ids)
+                    .getResultList();
+            result.sort(Comparator.comparing(Order_24133028::getCreatedAt).reversed()
+                    .thenComparing(Order_24133028::getId, Comparator.reverseOrder()));
+            return result;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public long countAdminOrders(OrderStatus_24133028 status) {
+        EntityManager em = JpaConfig_24133028.getEntityManagerFactory().createEntityManager();
+        try {
+            String jpql = "select count(o) from Order_24133028 o";
+            if (status != null) jpql += " where o.status = :status";
+            var query = em.createQuery(jpql, Long.class);
+            if (status != null) query.setParameter("status", status);
+            return query.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void updateAdminStatus(int orderId, OrderStatus_24133028 status) {
+        EntityManager em = JpaConfig_24133028.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Order_24133028 order = em.find(Order_24133028.class, orderId, LockModeType.PESSIMISTIC_WRITE);
+            if (order == null) throw new IllegalArgumentException("Không tìm thấy đơn hàng.");
+            OrderStatus_24133028 previous = order.getStatus();
+            if (previous == status) {
+                tx.commit();
+                return;
+            }
+            if (previous == OrderStatus_24133028.CANCELLED || previous == OrderStatus_24133028.RETURNED) {
+                throw new IllegalStateException("Đơn đã hủy/hoàn là trạng thái cuối, không thể đổi tiếp.");
+            }
+            if (status == OrderStatus_24133028.CANCELLED) {
+                if (previous == OrderStatus_24133028.SHIPPING
+                        || previous == OrderStatus_24133028.DELIVERING
+                        || previous == OrderStatus_24133028.DELIVERED) {
+                    throw new IllegalStateException("Đơn đã bàn giao vận chuyển không thể hủy tại đây.");
+                }
+                for (OrderItem_24133028 item : order.getItems()) {
+                    Book_24133028 book = item.getBook();
+                    if (book != null && book.getQuantity() != null) {
+                        book.setQuantity(book.getQuantity() + item.getQuantity());
+                    }
+                }
+            }
+            order.setStatus(status);
+            tx.commit();
+        } catch (RuntimeException exception) {
+            if (tx.isActive()) tx.rollback();
+            throw exception;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void deleteCancelledOrder(int orderId) {
+        EntityManager em = JpaConfig_24133028.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Order_24133028 order = em.find(Order_24133028.class, orderId, LockModeType.PESSIMISTIC_WRITE);
+            if (order == null) throw new IllegalArgumentException("Không tìm thấy đơn hàng.");
+            if (order.getStatus() != OrderStatus_24133028.CANCELLED) {
+                throw new IllegalStateException("Chỉ có thể xóa đơn hàng đã hủy.");
+            }
+            em.createQuery("delete from OrderItem_24133028 i where i.order.id = :orderId")
+                    .setParameter("orderId", orderId)
+                    .executeUpdate();
+            em.remove(order);
+            tx.commit();
+        } catch (RuntimeException exception) {
+            if (tx.isActive()) tx.rollback();
+            throw exception;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
