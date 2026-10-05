@@ -25,3 +25,15 @@ mvn clean package
 - Checkout COD dung JPA transaction, khoa va cap nhat ton kho, luu snapshot don hang.
 - User xem lich su/chi tiet don va loc theo 8 ma trang thai: `NEW`, `CONFIRMED`, `PREPARING`, `SHIPPING`, `DELIVERING`, `DELIVERED`, `CANCELLED`, `RETURNED`.
 - De quan sat filter, tao don test co nguoi nhan `TEST`, email `order-test@local.invalid`; script `sql/006-order-status-test.sql` chi cho phep cap nhat dung order duoc danh dau nay.
+
+# Hướng dẫn sử dụng BookStore
+
+Ứng dụng đang chạy trên Tomcat. Mở trang chủ:
+
+[http://localhost:8080/bookstore-24133028/home](http://localhost:8080/bookstore-24133028/home)
+
+## Đăng nhập
+
+1. Chọn **Đăng nhập** trên thanh điều hướng hoặc mở [trang đăng nhập](http://localhost:8080/bookstore-24133028/login).
+2. Tài khoản user: tự đăng kí và đăng nhập
+3. Tài khoản admin: Email: trungkhang98pth+c2check@gmail.com | Password: C2SafePass938!
