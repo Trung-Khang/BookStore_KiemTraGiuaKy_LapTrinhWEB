@@ -11,6 +11,8 @@
         <class>com.kiemtragiuaky.entity.Rating_24133028</class>
         <class>com.kiemtragiuaky.entity.RatingId_24133028</class>
         <class>com.kiemtragiuaky.entity.AccountOtp_24133028</class>
+        <class>com.kiemtragiuaky.entity.Order_24133028</class>
+        <class>com.kiemtragiuaky.entity.OrderItem_24133028</class>
         <properties>
             <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
             <property name="hibernate.hbm2ddl.auto" value="none"/>

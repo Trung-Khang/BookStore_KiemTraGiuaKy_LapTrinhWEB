@@ -5,6 +5,7 @@
 <section class="container py-5">
     <h1 class="h2 mb-4">Giỏ hàng</h1>
     <c:choose>
+        <c:when test="${param.message == 'order'}"><div class="alert alert-success">Đặt hàng COD thành công. Mã đơn: <c:out value="${sessionScope.checkoutOrderId}"/>.</div></c:when>
         <c:when test="${param.message == 'invalid'}"><div class="alert alert-danger">Số lượng không hợp lệ, sách hết hàng hoặc vượt tồn kho hiện tại.</div></c:when>
         <c:when test="${param.message == 'added'}"><div class="alert alert-success">Đã thêm sách vào giỏ hàng.</div></c:when>
         <c:when test="${param.message == 'updated'}"><div class="alert alert-success">Đã cập nhật số lượng.</div></c:when>
@@ -22,7 +23,7 @@
                     <td><form method="post" action="<c:url value='/cart/remove'/>"><input type="hidden" name="bookId" value="${line.book.id}"/><button class="btn btn-outline-danger" type="submit">Xóa</button></form></td>
                 </tr></c:forEach>
             </tbody></table></div>
-            <div class="d-flex justify-content-between align-items-center"><form method="post" action="<c:url value='/cart/clear'/>"><button class="btn btn-outline-danger" type="submit">Xóa giỏ hàng</button></form><div class="h4 mb-0">Tổng: <fmt:formatNumber value="${cartTotal}" type="currency" currencyCode="VND" maxFractionDigits="0"/></div></div>
+            <div class="d-flex justify-content-between align-items-center"><form method="post" action="<c:url value='/cart/clear'/>"><button class="btn btn-outline-danger" type="submit">Xóa giỏ hàng</button></form><div class="h4 mb-0">Tổng: <fmt:formatNumber value="${cartTotal}" type="currency" currencyCode="VND" maxFractionDigits="0"/></div><a class="btn btn-primary" href="<c:url value='/checkout'/>">Thanh toán COD</a></div>
         </c:otherwise>
     </c:choose>
 </section>
